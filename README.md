@@ -44,10 +44,10 @@ No third-party modules are usually required. The basic version uses the built-in
 # Example usage
 banner_grab("example.com", 80)
 
-#Run the script
+# Run the script
 python3 banner_grabber.py
 
-#Customize
+# Customize
 You can loop over multiple ports or hosts for broader scanning:
 
 ```python
@@ -56,13 +56,13 @@ for port in [21, 22, 80, 443]:
 
 
 
-#How a Pentester Benefits from Banner Grabbing
+# How a Pentester Benefits from Banner Grabbing
 
 1. Identify Services: Reveals what services are running (e.g., SSH, Apache).
 2. Detect Versions: Exposes software versions to find known vulnerabilities (CVEs).
 3. Plan Exploits: Helps choose the right tools or exploits for detected services.
 4. Find Misconfigurations: Overly detailed banners can be reported as info disclosure.
 5. Support Phishing: Info can aid in crafting tech-specific phishing attacks.
-
-> 📌 **Example**: `Server: Apache/2.4.49 (Ubuntu)` → Known vulnerability (CVE-2021-41773)
+ 
+> 📌 Example: `Server: Apache/2.4.49 (Ubuntu)` → Known vulnerability (CVE-2021-41773)
 
