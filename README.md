@@ -1,5 +1,4 @@
 # custom_recon_tool
-# 🔍 Reconnaissance Tool
 
 A powerful and modular Python-based reconnaissance framework for ethical hackers and cybersecurity researchers. This tool performs passive and active recon to gather information about a target, including subdomains, DNS records, WHOIS info, open ports, banners, and technologies used.
 
