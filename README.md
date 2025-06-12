@@ -1,67 +1,151 @@
 # custom_recon_tool
-Functionality of a Banner Grabber
+# 🔍 Reconnaissance Tool
 
-A Banner Grabber is a reconnaissance tool used in **network security and penetration testing** to gather **information from open ports** on a target system or server. The goal is to **collect banners—text responses from services running on those ports—which often include:
-
-* Service name (e.g., Apache, OpenSSH)
-* Version number
-* Operating system details
-* Miscellaneous metadata
-
-Why is Banner Grabbing Important?
-
-* Identify running services and versions.
-* Detect vulnerabilities associated with specific service versions.
-* Footprinting and attack surface analysis.
+A powerful and modular Python-based reconnaissance framework for ethical hackers and cybersecurity researchers. This tool performs passive and active recon to gather information about a target, including subdomains, DNS records, WHOIS info, open ports, banners, and technologies used.
 
 ---
 
-### 🧪 Example Output of Banner Grabbing
+## 📁 Project Structure
 
-```bash
-Connected to 192.168.1.1:80
-Received banner: HTTP/1.1 200 OK
-Server: Apache/2.4.41 (Ubuntu)
+```
+Reconnaissance-Tool/
+├── active/
+│   ├── banner_grabber.py
+│   ├── port_scanner.py
+│   └── tech_detect.py
+├── passive/
+│   ├── dns_enum.py
+│   ├── subdomain_enum.py
+│   └── whois_lookup.py
+├── cli/
+│   └── cli_handler.py
+├── logs/
+│   └── tool.log
+├── main.py
+├── README.md
+└── requirements.txt
 ```
 
-# ✅ Requirements to Run a Banner Grabber Script
+---
 
-1. **Python Environment**
+## ⚙️ Features
 
-You’ll need Python (usually Python 3):
+- ✅ Subdomain Enumeration using crt.sh  
+- ✅ WHOIS Lookup  
+- ✅ DNS Record Enumeration (A, NS, MX, TXT, SOA)  
+- ✅ Full TCP Port Scan (1–65535)  
+- ✅ Banner Grabbing on Open Ports  
+- ✅ Technology Detection using Wappalyzer  
+- ✅ Logging to `logs/tool.log`
+
+---
+
+## 🐍 Requirements
+
+- Python 3.8 or higher
+
+**Install dependencies:**
 
 ```bash
-python3 --version
+pip install -r requirements.txt
 ```
 
- 2. **Dependencies**
+**Libraries Used:**
 
-No third-party modules are usually required. The basic version uses the built-in `socket` module.
+- `requests`  
+- `dnspython`  
+- `whois`  
+- `Wappalyzer`
 
+---
 
-## 🔐 How a Pentester Benefits from Banner Grabbing
+## 🚀 Usage
 
-1. **Identify Services** – Reveals what services are running (e.g., SSH, Apache).
-2. **Detect Versions** – Exposes software versions to find known vulnerabilities (CVEs).
-3. **Plan Exploits** – Helps choose the right tools or exploits for detected services.
-4. **Find Misconfigurations** – Overly detailed banners can be reported as information disclosure.
-5. **Support Phishing** – Banner info can aid in crafting tech-specific phishing attacks.
+Run the tool using:
 
-> 📌 **Example**: `Server: Apache/2.4.49 (Ubuntu)` → Known vulnerability: [CVE-2021-41773](https://nvd.nist.gov/vuln/detail/CVE-2021-41773)
+```bash
+python3 main.py <domain> [options]
+```
 
- 
-# Example usage
-banner_grab("example.com", 80)
+### Example:
 
-# Run the script
-python3 banner_grabber.py
+```bash
+python3 main.py testphp.vulnweb.com --subdomains --whois --dns --ports --banner --tech
+```
 
-# Customize
-You can loop over multiple ports or hosts for broader scanning:
+### CLI Options:
 
-```python
-for port in [21, 22, 80, 443]:
-    banner_grab("192.168.1.10", port)
+| Option         | Description                                  |
+|----------------|----------------------------------------------|
+| `<domain>`     | Target domain (e.g. example.com)             |
+| `--scheme`     | URL scheme (http or https), default is http  |
+| `--subdomains` | Perform subdomain enumeration                |
+| `--whois`      | Perform WHOIS lookup                         |
+| `--dns`        | Enumerate DNS records                        |
+| `--ports`      | Scan all ports (1–65535)                     |
+| `--banner`     | Grab banners from open ports                 |
+| `--tech`       | Detect web technologies (via Wappalyzer)     |
 
+---
 
+## 📄 Logging
 
+All actions are logged in:
+
+```bash
+logs/tool.log
+```
+
+Use this file to review scan details, errors, and summaries.
+
+---
+
+## 🧪 Sample Output
+
+```
+====== SUBDOMAIN ENUMERATION RESULTS ======
+- admin.testphp.vulnweb.com
+- dev.testphp.vulnweb.com
+
+====== WHOIS LOOKUP ======
+Registrar: NameCheap, Inc.
+Created: 2010-04-15
+Expires: 2030-04-15
+
+====== DNS ENUMERATION RESULTS ======
+A Records:
+- 93.184.216.34
+
+MX Records:
+- mail.vulnweb.com
+
+====== FULL PORT SCAN (1–65535) ======
+Open Ports:
+- Port 80
+- Port 443
+
+====== BANNER GRABBING RESULTS ======
+[Port 80] HTTP/1.1 200 OK
+[Port 443] HTTP/1.1 301 Moved Permanently
+
+====== TECHNOLOGY DETECTION (Wappalyzer) ======
+- Apache
+- Bootstrap
+- Google Analytics
+```
+
+---
+
+## ⚠️ Disclaimer
+
+This tool is intended for educational and authorized use only.  
+**Unauthorized scanning or enumeration of systems without permission may be illegal.**  
+The author is not responsible for any misuse.
+
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](./LICENSE).
+
+---
